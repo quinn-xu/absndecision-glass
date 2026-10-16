@@ -26,22 +26,54 @@
 .stage.is-open .letter-inside{opacity:1;transform:translateY(0);transition-delay:1.75s}
 .next{display:flex;align-items:center;gap:16px;align-self:center;opacity:0;visibility:hidden;transform:translateY(15px);transition:opacity .5s ease,transform .5s ease,visibility .5s;letter-spacing:.13em;text-transform:uppercase;font-size:11px;color:#70677b;border:0;background:none;padding:18px 8px;margin-top:12px}.next span:last-child{width:42px;height:42px;border:1px solid rgba(128,117,146,.28);display:grid;place-items:center;border-radius:50%;font-size:21px;transition:background .2s,transform .2s}.next:hover span:last-child{background:rgba(255,255,255,.44);transform:translateX(4px)}.stage.is-open ~ .next{opacity:1;visibility:visible;transform:translateY(0);transition-delay:2.28s}
 .scene-two::before{background:linear-gradient(180deg,#faf5f2 0%,#f5efec 100%)}.scene-two::after{background:radial-gradient(circle at 12% 18%,rgba(255,201,184,.52),transparent 24%),radial-gradient(circle at 82% 20%,rgba(206,199,255,.50),transparent 22%),radial-gradient(circle at 80% 78%,rgba(192,232,221,.44),transparent 23%),radial-gradient(circle at 22% 80%,rgba(255,232,173,.40),transparent 18%),radial-gradient(circle at 50% 48%,rgba(255,255,255,.72),transparent 35%);filter:blur(24px)}.scene-two .ambience{opacity:.54}.scene-two{display:none}.scene-two.active{display:grid}.scene-one.gone{display:none}.note-wrap{width:min(100%,860px);position:relative;padding:clamp(29px,6vw,70px);background:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,255,255,.34));border:1px solid rgba(255,255,255,.86);border-radius:28px;backdrop-filter:blur(26px) saturate(118%);-webkit-backdrop-filter:blur(26px) saturate(118%);box-shadow:0 18px 72px rgba(165,146,177,.14),inset 0 1px 1px rgba(255,255,255,.9);animation:rise .9s cubic-bezier(.2,.7,.2,1) both}@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}.note-wrap .eyebrow{margin-bottom:30px}.note-wrap h1{font-family:Georgia,serif;font-size:clamp(39px,6vw,74px);font-weight:400;line-height:1.05;letter-spacing:-.05em;margin:0 0 39px}.note-wrap p{font-family:Georgia,serif;font-size:clamp(17px,2vw,21px);line-height:1.76;color:#3f394a;margin:0 0 24px;max-width:720px}.note-wrap p:last-of-type{margin-bottom:0}.end-heart{color:#e98b72}.back-link{position:absolute;left:clamp(24px,5vw,70px);bottom:30px;border:0;background:none;color:#84788d;font-size:12px;letter-spacing:.08em;padding:13px 0}.back-link:hover{color:#312c39}
+
+/* Soft pastel paper and pearl confetti falls from the top of the entire scene, behind the envelope. */
+.pearl-confetti{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.scene-one .main-stack,.scene-one .brand,.scene-one .top-right{position:relative;z-index:1}
+.scene-one .brand,.scene-one .top-right{position:absolute}
+.pearl-fleck{position:absolute;left:var(--x);top:-22px;width:var(--w);height:var(--h);background:var(--tint);border:1px solid rgba(255,255,255,.74);border-radius:var(--radius);box-shadow:0 1px 7px rgba(255,255,255,.65),0 2px 7px rgba(160,140,177,.12);opacity:0;transform:translate3d(0,0,0) rotate(var(--rot));animation:pearl-fall var(--duration) ease-in var(--delay) forwards;will-change:transform,opacity}
+@keyframes pearl-fall{0%{opacity:0;transform:translate3d(0,-28px,0) rotate(var(--rot))}12%{opacity:.94}80%{opacity:.82}100%{opacity:0;transform:translate3d(var(--drift),var(--fall),0) rotate(calc(var(--rot) + 580deg))}}
+@media(prefers-reduced-motion:reduce){.pearl-fleck{animation:none!important;display:none}}
 @media(max-width:600px){.brand,.top-right{top:23px}.brand{left:22px}.top-right{right:22px}.scene{padding:75px 17px 32px}.intro{font-size:clamp(32px,9vw,43px)}.instruction{margin-bottom:10px;font-size:12px}.stage{height:clamp(340px,105vw,430px);width:100%}.envelope3d{width:min(100%,350px);aspect-ratio:1.08/1}.letter{height:76%;padding:15px 11px}.school-name{font-size:clamp(20.8px,6.4vw,27.2px)}.school-place{font-size:12px}.letter-kicker{font-size:10px;margin-bottom:10px}.hearts{margin-top:12px}.seal{width:71px;height:71px}.next{margin-top:2px}.note-wrap{padding:38px 26px 43px;border-radius:22px}.note-wrap h1{margin-bottom:26px}.note-wrap p{line-height:1.65}.scene-two{padding-bottom:85px}.back-link{bottom:23px}}
 @media(prefers-reduced-motion:reduce){.envelope3d{animation:none}.stage.is-open .letter{animation:take-out .05s forwards}.stage.is-open .letter-inside{transition-delay:.1s}.stage.is-open ~ .next{transition-delay:.1s}*,*::before,*::after{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <section class="scene scene-one" id="reveal-scene" aria-label="School decision reveal">
-<div class="ambience"></div><div class="brand">A LITTLE LIFE UPDATE</div><div class="top-right">01 / 02</div>
+<div class="ambience"></div><div class="pearl-confetti" id="pearl-confetti" aria-hidden="true"></div><div class="brand">A LITTLE LIFE UPDATE</div><div class="top-right">01 / 02</div>
 <div class="main-stack"><div class="eyebrow">AFTER MUCH DEBATE...</div><h1 class="intro">Which nursing school did I choose?</h1><p class="instruction">Place your bets. 👀</p>
 <div class="stage" id="stage"><div class="aura"></div><div class="envelope3d" id="envelope"><div class="back"></div><div class="letter"><div class="letter-inside"><p class="letter-kicker">I'm headed to</p><h2 class="school-name">University of Miami</h2><p class="school-place">Coral Gables, FL · Accelerated BSN</p><p class="hearts" aria-label="orange and green hearts">🧡💚</p></div></div><div class="front"></div><div class="flap"></div><button class="seal" id="open" type="button" aria-label="Open the envelope">OPEN</button></div></div>
 <button class="next" id="next" type="button" aria-label="Continue to my note"><span>and one more thing</span><span aria-hidden="true">→</span></button>
 </div></section>
-<section class="scene scene-two" id="note-scene" aria-label="A note to my favorite humans"><div class="ambience"></div><div class="brand">A LITTLE LIFE UPDATE</div><div class="top-right">02 / 02</div><article class="note-wrap"><div class="eyebrow">a note from me</div><h1>To my favorite humans</h1><p>Both paths had so much to offer, and choosing between them was anything but easy. But this next chapter is about learning, growing, and becoming the person I want to be, with the people I cherish the most.</p><p>Thank you for being supportive and cheering me on through all the indecision.</p><p>A new adventure officially begins ♡ <span class="end-heart"></span></p></article><button class="back-link" id="back" type="button">← Back to the letter</button></section>
+<section class="scene scene-two" id="note-scene" aria-label="A note to my favorite humans"><div class="ambience"></div><div class="brand">A LITTLE LIFE UPDATE</div><div class="top-right">02 / 02</div><article class="note-wrap"><div class="eyebrow">a note from me</div><h1>To my favorite humans</h1><p>Both paths had so much to offer, and choosing between them was anything but easy. But this next chapter is about learning, growing, and becoming the person I want to be, with the people I cherish the most.</p><p>Thank you for being supportive and cheering me on through all the indecision.</p><p>A new adventure officially begins <span class="end-heart">♡</span></p></article><button class="back-link" id="back" type="button">← Back to the letter</button></section>
 <script>
 (function(){'use strict';
 var stage=document.getElementById('stage'),open=document.getElementById('open'),next=document.getElementById('next'),back=document.getElementById('back'),first=document.getElementById('reveal-scene'),second=document.getElementById('note-scene');
-open.addEventListener('click',function(){if(stage.classList.contains('is-open'))return;stage.classList.add('is-open');open.disabled=true;});
+function scatterPearls(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var layer=document.getElementById('pearl-confetti');
+  var width=layer.clientWidth;
+  var height=layer.clientHeight;
+  var shades=['#f5bdaa','#dfcdf7','#bfe0f4','#c3e7d6','#ffe3aa','#fff7ec','#e7d9ec'];
+  for(var i=0;i<118;i++){
+    var particle=document.createElement('i');
+    particle.className='pearl-fleck';
+    particle.setAttribute('aria-hidden','true');
+    particle.style.setProperty('--x',(Math.random()*width)+'px');
+    particle.style.setProperty('--drift',((Math.random()-.5)*160)+'px');
+    particle.style.setProperty('--fall',(height+75+Math.random()*90)+'px');
+    particle.style.setProperty('--w',(7+Math.random()*9)+'px');
+    particle.style.setProperty('--h',(6+Math.random()*10)+'px');
+    particle.style.setProperty('--tint',shades[i%shades.length]);
+    particle.style.setProperty('--radius',i%5===0?'50%':'3px');
+    particle.style.setProperty('--rot',(Math.random()*360)+'deg');
+    particle.style.setProperty('--duration',(3.7+Math.random()*2.3)+'s');
+    particle.style.setProperty('--delay',(Math.random()*1.2)+'s');
+    layer.appendChild(particle);
+    particle.addEventListener('animationend',function(){this.remove()},{once:true});
+  }
+}
+open.addEventListener('click',function(){if(stage.classList.contains('is-open'))return;stage.classList.add('is-open');open.disabled=true;window.setTimeout(scatterPearls,250);});
 next.addEventListener('click',function(){first.classList.add('gone');second.classList.add('active');window.scrollTo(0,0);});
 back.addEventListener('click',function(){second.classList.remove('active');first.classList.remove('gone');window.scrollTo(0,0);});
 })();
